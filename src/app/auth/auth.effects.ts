@@ -11,13 +11,13 @@ import { mergeMap, map, catchError } from 'rxjs/operators';
 export class AuthEffects {
   constructor(private actions$: Actions, private auth: AuthService) {}
   @Effect()
-  abc$: Observable <any> = this.actions$.pipe(
+  abc$: Observable<any> = this.actions$.pipe(
     ofType(loginActions.AuthActionTypes.LoadAuths),
     mergeMap((action) =>
       this.auth.login(action['payload']).pipe(
         map((data) => new loginActions.LoadAuthsSuccess({ data })),
         catchError((err) =>
-          of(new loginActions.LoadAuthsFailure({ error: err.error.status }))
+          of(new loginActions.LoadAuthsFailure({ error: err.error }))
         )
       )
     )

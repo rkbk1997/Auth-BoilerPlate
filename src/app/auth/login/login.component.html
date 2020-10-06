@@ -1,38 +1,49 @@
 <div class="row w-100 d-flex p-0 m-0">
-    <div class="col-md-4 col-sm-12"></div>
-    <div class="col-md-4 col-sm-12">
-        <div class="container">
-            <img src="assets/inages/login.jpg" alt="">
-            <h1>Login Here...</h1>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="row p-0 m-0">
-                    <div class="col-md-12">
-                        <app-input-field [iconName]="'person'" [controlName]="'show'" formControlName="username"  [labelName]="'Username'"
-                            [type]="'text'" [onTyping]="onfocus">
-                        </app-input-field>
-                        <div class="error_div">
-                            <span class="error">{{error.username_error}}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <app-input-field [iconName]="'lock'" [controlName]="'show'" formControlName="password" [labelName]="'Password'"
-                            [type]="'password'" [onTyping]="onfocus">
-                        </app-input-field>
-                        <div class="error_div">
-                            <span class="error">{{error.password_error}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 pt-4">
-                    <app-button  btnname="Login"></app-button>
-                </div>
-            </form>
-            <div class="col-md-12 text-center">
-                <a routerLink="/register">Create New Account </a>
+  <div class="col-md-4 col-sm-12"></div>
+  <div class="col-md-4 col-sm-12">
+    <div class="container">
+      <img src="assets/inages/login.jpg" alt="" />
+      <h1>Login Here...</h1>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="row p-0 m-0">
+          <div class="col-md-12">
+            <app-input-field
+              [iconName]="'person'"
+              [controlName]="'show'"
+              formControlName="username"
+              [labelName]="'Username'"
+              [type]="'text'"
+              [onTyping]="onfocus"
+            >
+            </app-input-field>
+            <div class="error_div">
+              <span class="error">{{ error$.username_error }}</span>
             </div>
+          </div>
+          <div class="col-md-12">
+            <app-input-field
+              [iconName]="'lock'"
+              [controlName]="'show'"
+              formControlName="password"
+              [labelName]="'Password'"
+              [type]="'password'"
+              [onTyping]="onfocus"
+            >
+            </app-input-field>
+            <div class="error_div">
+              <span class="error">{{ error$.password_error }}</span>
+            </div>
+          </div>
         </div>
+        <div class="col-md-12 pt-4">
+          <app-button btnname="Login"></app-button>
+        </div>
+      </form>
+      <div class="col-md-12 text-center">
+        <a routerLink="/register">Create New Account </a>
+      </div>
     </div>
+  </div>
 </div>
-<br>
-<br>
-
+<br />
+<br />
