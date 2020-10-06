@@ -21,3 +21,10 @@ img{
     margin-right: auto;
     margin-bottom: 20px;
 }
+.error{
+    color: red;
+   
+}
+.error_div{
+    height: 20px;
+}

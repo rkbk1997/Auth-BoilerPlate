@@ -10,21 +10,25 @@
                         <app-input-field [iconName]="'person'" [controlName]="'show'" formControlName="username"  [labelName]="'Username'"
                             [type]="'text'" [onTyping]="onfocus">
                         </app-input-field>
-                        <span>{{error.username_error}}</span>
+                        <div class="error_div">
+                            <span class="error">{{error.username_error}}</span>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <app-input-field [iconName]="'lock'" [controlName]="'show'" formControlName="password" [labelName]="'Password'"
                             [type]="'password'" [onTyping]="onfocus">
                         </app-input-field>
-                        <span>{{error.password_error}}</span>
+                        <div class="error_div">
+                            <span class="error">{{error.password_error}}</span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 pt-4">
                     <app-button  btnname="Login"></app-button>
                 </div>
             </form>
             <div class="col-md-12 text-center">
-                <a routerLink="/register">No account? Click Here</a>
+                <a routerLink="/register">Create New Account </a>
             </div>
         </div>
     </div>

@@ -26,11 +26,17 @@ export class LoginComponent implements OnInit {
 
   errorMessage$ = null;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private store: Store<{ auth: object }>
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private store: Store<{ auth: object }>
   ) {
     this.store.select('auth').subscribe((resp) => {
-      this.errorMessage$ = resp['error'];
-      console.log('this is error message: ', this.errorMessage$);
+      if (resp['error'] === 'Invalid Username') {
+        this.error.username_error = resp['error'];
+      } else if (resp['error'] === 'Invalid Password') {
+        this.error.password_error = resp['error'];
+      }
     });
   }
 
@@ -40,8 +46,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.value.username === '') {
       this.error.username_error = 'Username Must Should Be Filled';
       return false;
-    }
-    else if (this.loginForm.value.password === '') {
+    } else if (this.loginForm.value.password === '') {
       this.error.password_error = 'Password Must Should Be Filled';
     } else {
       return true;
@@ -53,33 +58,12 @@ export class LoginComponent implements OnInit {
     this.errorMessage$ = '';
     this.error.password_error = '';
     this.error.username_error = '';
-  };
+  }
 
   onSubmit(): any {
-    // console.log(this.isvalid())
     if (this.isvalid()) {
-      //     console.log('login page', this.loginForm.value);
-      //     this.auth.login(this.loginForm.value)
-      //       .subscribe(
-      //         res => {
-      //           if (res.status === true) {
-      //             localStorage.setItem('token', res.token);
-      //             alert('login Success');
-      //           }
-      //           else {
-      //             this.error.message = res.status;
-      //             this.error.show = true;
-      //             console.log(res);
-      //           }
-      //         },
-      //         err => console.log(err)
-      //       );
-      //     console.log('login page', this.loginForm.controls.email.touched);
-
       this.store.dispatch(new loginAction.LoadAuths(this.loginForm.value));
-
-      this.store
-        .pipe(select(loginSelector.getlogin))
+      this.store.pipe(select(loginSelector.getlogin))
         .subscribe((state) => console.log('my dtat', state));
     }
   }
