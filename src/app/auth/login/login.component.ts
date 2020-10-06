@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { Store, select } from '@ngrx/store';
 import * as loginAction from '../auth.actions';
 import * as loginSelector from '../auth.selectors';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private store: Store<{ auth: object }>
+    private store: Store<{ auth: object }>,
+    private router: Router
   ) {
     this.store.select('auth').subscribe((resp) => {
       if (resp['error'] !== '') {
@@ -60,6 +62,11 @@ export class LoginComponent implements OnInit {
       this.store.dispatch(new loginAction.LoadAuths(this.loginForm.value));
       this.error$.username_error = '';
       this.error$.password_error = '';
+      this.store.select('auth').subscribe((resp) => {
+        if (resp['loggin']) {
+          this.router.navigate(['/home']);
+        }
+      });
     }
   }
 }
