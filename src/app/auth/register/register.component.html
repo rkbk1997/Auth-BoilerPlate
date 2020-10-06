@@ -1,0 +1,54 @@
+<div class="container p-5">
+    <h1>Register Here...</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="row w-100 d-flex p-0 m-0">
+            <div class="col-md-12" *ngIf="error.show">
+                <div class="alert alert-danger text-center" role="alert">
+                    {{error.message}}
+                  </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <app-input-field [labelName]="'First Name'"  [onTyping]="onfocus"  [controlName]="'show'" formControlName="firstName" [iconName]="'person'" [type]="'text'">
+                </app-input-field>
+                <!-- <span class="error">{{error.firstName}}</span> -->
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <app-input-field [labelName]="'Last Name'"  [onTyping]="onfocus"  [controlName]="'show'" formControlName="lastName" [iconName]="'person'" [type]="'text'">
+                </app-input-field>
+                <!-- <span class="error">{{error.lastName}}</span> -->
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <app-input-field [labelName]="'Username'"  [onTyping]="onfocus"  [controlName]="'show'" formControlName="username" [iconName]="'person'" [type]="'text'">
+                </app-input-field>
+                <!-- <span class="error">{{error.username}}</span> -->
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <app-input-field [labelName]="'Email'"  [onTyping]="onfocus"  [controlName]="'show'" formControlName="email" [iconName]="'email'" [type]="'email'">
+                </app-input-field>
+                <!-- <span class="error">{{error.email}}</span> -->
+            </div>
+            <!-- <div class="col-md-6" style="display: inline-block;">
+                <app-radio name="Male" value="Male" style="display: inline-block;"></app-radio>&nbsp;&nbsp;&nbsp;
+                <app-radio name="Female" value="Female" style="display: inline-block;"></app-radio>
+            </div> -->
+            <div class="col-md-6 col-sm-12">
+                <app-input-field formControlName="dob"  [onTyping]="onfocus"  [controlName]="'show'" [labelName]="'DOB'" [iconName]="'person'" [type]="'date'">
+                </app-input-field>
+                <!-- <span class="error">{{error.dob}}</span> -->
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <app-input-field [labelName]="'Password'"  [onTyping]="onfocus"  [controlName]="'show'" formControlName="password" [iconName]="'lock'" [type]="'password'">
+                </app-input-field>
+                <!-- <span class="error">{{error.password}}</span> -->
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <app-input-field formControlName="password2"  [onTyping]="onfocus"  [controlName]="'show'" [labelName]="'Conform Password'" [iconName]="'lock'" [type]="'password'" >
+                </app-input-field>
+                <!-- <span class="error">{{error.password2}}</span> -->
+            </div>
+            <div class="col-md-12">
+                <app-button btnname="Register"></app-button>
+            </div>
+        </div>
+    </form>
+</div>
