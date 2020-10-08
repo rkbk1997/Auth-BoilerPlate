@@ -15,9 +15,10 @@ import { HomeComponent } from './home/home.component';
 import { CoreModule } from './core/core.module';
 
 import { LoginSuccessEffect } from './auth/login-success.effect';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, UnauthorizedComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

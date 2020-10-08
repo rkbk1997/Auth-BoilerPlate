@@ -29,12 +29,10 @@ export class HomeComponent implements OnInit {
     } else {
       this.store.select('auth').subscribe((resp) => {
         if (resp['user'] === null) {
-          console.log('no user in store!');
-          this.api
-            .authenticateUser(localStorage.getItem('token'))
-            .subscribe((response: any) => {
-              console.log('this is server response: ', response);
-            });
+          this.api.authenticateUser(localStorage.getItem('token')).subscribe(
+            (response) => console.log('this is server response: ', response),
+            (error) => this.router.navigate(['/401-unauthorized'])
+          );
         }
       });
     }
