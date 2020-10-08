@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/core/api.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -33,8 +33,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private api: ApiService
   ) {}
 
   ngOnInit(): void {}
@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit {
     console.log(this.isvalid());
     if (this.isvalid()) {
       console.log('this is in form: ', this.registerForm.value);
-      this.auth.adduser(this.registerForm.value).subscribe((res) => {
+      this.api.register(this.registerForm.value).subscribe((res) => {
         if (!res) {
           alert('User already exists!');
         } else {

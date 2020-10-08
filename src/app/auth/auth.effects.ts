@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { from } from 'rxjs';
-import { Observable, of } from 'rxjs';
-import { Action } from '@ngrx/store';
-import * as loginActions from './auth.actions';
-import { AuthService } from './auth.service';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import {
+  AuthActionTypes,
+  LogIn,
+  LogInSuccess,
+  LogInFailure,
+} from './auth.actions';
+import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
+import { ApiService } from '../core/api.service';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private auth: AuthService) {}
+  constructor(private actions$: Actions, private api: ApiService) {}
   @Effect()
-  abc$: Observable<any> = this.actions$.pipe(
-    ofType(loginActions.AuthActionTypes.LoadAuths),
-    mergeMap((action) =>
-      this.auth.login(action['payload']).pipe(
-        map((data) => new loginActions.LoadAuthsSuccess({ data })),
-        catchError((err) =>
-          of(new loginActions.LoadAuthsFailure({ error: err.error }))
-        )
+  LogIn: Observable<any> = this.actions$.pipe(
+    ofType(AuthActionTypes.LOGIN),
+    map((action) => action['payload']),
+    mergeMap((payload) =>
+      this.api.logIn(payload).pipe(
+        map(
+          (user) =>
+            new LogInSuccess({
+              token: user.token,
+              firstName: user.firstName,
+              lastName: user.lastName,
+            })
+        ),
+        catchError(async (error) => new LogInFailure({ error: error.error }))
       )
     )
   );

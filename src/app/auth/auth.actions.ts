@@ -1,24 +1,24 @@
 import { Action } from '@ngrx/store';
 
 export enum AuthActionTypes {
-  LoadAuths = '[Auth] Load Auths',
-  LoadAuthsSuccess = '[Auth] Load Auths Success',
-  LoadAuthsFailure = '[Auth] Load Auths Failure',
+  LOGIN = '[Auth] Login',
+  LOGIN_SUCCESS = '[Auth] Login Success',
+  LOGIN_FAILURE = '[Auth] Login Failure',
 }
 
-export class LoadAuths implements Action {
-  readonly type = AuthActionTypes.LoadAuths;
+export class LogIn implements Action {
+  readonly type = AuthActionTypes.LOGIN;
   constructor(public payload: any) {}
 }
 
-export class LoadAuthsSuccess implements Action {
-  readonly type = AuthActionTypes.LoadAuthsSuccess;
-  constructor(public payload: { data: any }) {}
+export class LogInSuccess implements Action {
+  readonly type = AuthActionTypes.LOGIN_SUCCESS;
+  constructor(public payload: any) {}
 }
 
-export class LoadAuthsFailure implements Action {
-  readonly type = AuthActionTypes.LoadAuthsFailure;
-  constructor(public payload: { error: string }) {}
+export class LogInFailure implements Action {
+  readonly type = AuthActionTypes.LOGIN_FAILURE;
+  constructor(public payload: any) {}
 }
 
-export type AuthActions = LoadAuths | LoadAuthsSuccess | LoadAuthsFailure;
+export type AuthActions = LogIn | LogInFailure | LogInSuccess;

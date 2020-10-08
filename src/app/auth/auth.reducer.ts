@@ -1,41 +1,40 @@
-import { Action } from '@ngrx/store';
 import { AuthActions, AuthActionTypes } from './auth.actions';
+import { User } from '../models/user';
 
 export const authFeatureKey = 'auth';
 
 export interface State {
-  loggin: boolean;
-  error: string;
+  isAuthenticated: boolean;
+  user: User | null;
+  error: object;
 }
 
 export const initialState: State = {
-  loggin: false,
-  error: '',
+  isAuthenticated: false,
+  user: null,
+  error: null,
 };
 
 export function reducer(state = initialState, action: AuthActions): State {
   switch (action.type) {
-    case AuthActionTypes.LoadAuths:
+    case AuthActionTypes.LOGIN_SUCCESS: {
       return {
-        ...state
+        ...state,
+        isAuthenticated: true,
+        user: {
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+        },
+        error: null,
       };
-      case AuthActionTypes.LoadAuthsSuccess:
-        return{
-          ...state,
-          loggin: action.payload.data,
-          error: ''
-        };
-      case AuthActionTypes.LoadAuthsFailure:
-        return{
-          ...state,
-          loggin: false,
-          error: action.payload.error
-        };
-      // case AuthActionTypes.IncrementCounter:
-      //   return{
-      //     ...state,
-      //     counter: state.counter + 1
-      //   };
+    }
+    case AuthActionTypes.LOGIN_FAILURE:
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        error: action.payload.error,
+      };
     default:
       return state;
   }
