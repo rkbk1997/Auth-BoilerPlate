@@ -48,12 +48,14 @@ export class LoginComponent implements OnInit {
       return false;
     } else if (this.loginForm.value.password === '') {
       this.error$.password_error = 'Password cannot be empty!';
+      return false;
     } else {
       return true;
     }
   }
 
   onfocus(): any {
+    console.log('login comp: onfocus ');
     this.error$.password_error = '';
     this.error$.username_error = '';
   }

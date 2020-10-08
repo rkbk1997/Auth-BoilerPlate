@@ -24,17 +24,20 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('token')) {
-      this.router.navigate(['/']);
-    } else {
-      this.store.select('auth').subscribe((resp) => {
-        if (resp['user'] === null) {
-          this.api.authenticateUser(localStorage.getItem('token')).subscribe(
-            (response) => console.log('this is server response: ', response),
-            (error) => this.router.navigate(['/401-unauthorized'])
-          );
-        }
-      });
-    }
+    this.store.select('auth').subscribe((resp) => {
+      if (resp['user'] === null) {
+        this.api.authenticateUser(localStorage.getItem('token')).subscribe(
+          (response) => console.log('this is server response: ', response),
+          (error) => {
+            this.router.navigate([
+              '/401-unauthorized',
+              {
+                message: JSON.parse(error.error).message,
+              },
+            ]);
+          }
+        );
+      }
+    });
   }
 }
