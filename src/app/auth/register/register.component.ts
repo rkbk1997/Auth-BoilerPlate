@@ -78,12 +78,12 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  onfocus = (): any => {
+  onfocus(): any {
     // tslint:disable-next-line: forin
     for (const key in this.error$) {
       this.error$[key] = '';
     }
-  };
+  }
 
   onSubmit(): void {
     console.log(this.isvalid());

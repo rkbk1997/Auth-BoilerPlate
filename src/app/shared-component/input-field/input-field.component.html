@@ -8,7 +8,7 @@
       matInput
       [type]="type"
       [(ngModel)]="fieldValue"
-      (focus)="onTyping()"
+      (focus)="clearErrorMessage.emit()"
       required
     />
   </mat-form-field>

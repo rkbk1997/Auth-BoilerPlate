@@ -4,6 +4,8 @@ import {
   OnInit,
   forwardRef,
   AfterContentChecked,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -25,6 +27,8 @@ export class InputFieldComponent implements OnInit, AfterContentChecked {
   @Input() iconName: string;
   @Input() controlName: string;
   @Input() onTyping: () => {};
+
+  @Output() clearErrorMessage = new EventEmitter();
 
   fieldValue = '';
 
@@ -49,6 +53,5 @@ export class InputFieldComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked(): void {
     this.propagateChange(this.fieldValue);
-    // change pe chalta h
   }
 }

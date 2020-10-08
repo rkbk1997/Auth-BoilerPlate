@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import * as loginAction from '../auth.actions';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -18,17 +19,16 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
+  loading$: Observable<boolean>;
+
   error$ = {
     username_error: '',
     password_error: '',
   };
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<{ auth: object }>,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder, private store: Store<{ auth: object }>) {
     this.store.select('auth').subscribe((resp) => {
+      this.loading$ = resp['loading'];
       if (resp['error'] !== null) {
         this.error$[resp['error']['fieldName'] + '_error'] =
           resp['error']['errorMessage'];
@@ -36,7 +36,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem('token') !== null) {
+      localStorage.removeItem('token');
+    }
+  }
 
   isvalid(): boolean {
     if (this.loginForm.value.username === '') {
@@ -49,10 +53,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onfocus = (): any => {
+  onfocus(): any {
     this.error$.password_error = '';
     this.error$.username_error = '';
-  };
+  }
 
   onSubmit(): any {
     if (this.isvalid()) {

@@ -7,16 +7,24 @@ export interface State {
   isAuthenticated: boolean;
   user: User | null;
   error: object;
+  loading: boolean;
 }
 
 export const initialState: State = {
   isAuthenticated: false,
   user: null,
   error: null,
+  loading: false,
 };
 
 export function reducer(state = initialState, action: AuthActions): State {
   switch (action.type) {
+    case AuthActionTypes.LOGIN: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     case AuthActionTypes.LOGIN_SUCCESS: {
       return {
         ...state,
@@ -26,6 +34,7 @@ export function reducer(state = initialState, action: AuthActions): State {
           lastName: action.payload.lastName,
         },
         error: null,
+        loading: false,
       };
     }
     case AuthActionTypes.LOGIN_FAILURE:
@@ -34,6 +43,7 @@ export function reducer(state = initialState, action: AuthActions): State {
         user: null,
         isAuthenticated: false,
         error: action.payload.error,
+        loading: false,
       };
     default:
       return state;
